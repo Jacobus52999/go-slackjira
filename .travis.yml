@@ -1,0 +1,8 @@
+cache: apt
+
+language: go
+go:
+  - tip
+
+install:
+  - go get -t -v ./...
