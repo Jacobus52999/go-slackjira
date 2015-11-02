@@ -235,10 +235,9 @@ func sendMessage(issue Issue, channel string) error {
 
 func processEvents(text string, channel string, wg sync.WaitGroup) {
 	defer wg.Done()
-	matches := Pattern.FindStringSubmatch(text)
-	if matches != nil && matches[1] != "" {
-		issue, err := Client.GetIssue(strings.TrimSpace(matches[1]))
-		if err == nil {
+	matches := Pattern.FindAllStringSubmatch(text, -1)
+	for _, v := range matches {
+		if issue, err := Client.GetIssue(strings.TrimSpace(v[1])); err == nil {
 			sendMessage(issue, channel)
 		}
 	}
