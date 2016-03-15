@@ -215,6 +215,7 @@ func sendMessage(issue Issue, channel string) error {
 	params := slack.PostMessageParameters{}
 	text := fmt.Sprintf("*%s*\n\n *Assignee* %s *Priority* %s ", issue.Fields.Summary, issue.Fields.Assignee.DisplayName, issue.Fields.Priority.Name)
 	attachment := slack.Attachment{
+		Fallback:   issue.Key,
 		Title:      issue.Key,
 		TitleLink:  fmt.Sprintf("%s/browse/%s", jiraHostURL, issue.Key),
 		Text:       text,
